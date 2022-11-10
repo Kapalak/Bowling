@@ -68,7 +68,12 @@
 
         public int Score()
         {
-            throw new NotImplementedException();
+            int sum = 0;
+            foreach(var frame in this.Frames)
+            {
+               sum += frame.Rolls.Sum();
+            }
+            return sum;
         }
 
         private void RollsFirstFrames(int nbr)
