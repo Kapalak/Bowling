@@ -118,10 +118,6 @@
                 {
                     IsClosed = true;
                 }
-                if (Frames[_selectedFrameIndex].Rolls[0] == 10)
-                {
-                    IsClosed = true;
-                }
             }
             else if (Frames[_selectedFrameIndex].Rolls.Count() == 2)
             {
