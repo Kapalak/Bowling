@@ -65,13 +65,25 @@
                 Rolls(pins);
             }
         }
+        private int FrameScore(int index)
+        {
+            if (index < 9 && this.Frames[index].Rolls[0] == 10)
+            {
+                var nextTwoRolls = this.Frames[index + 1].Rolls.Count() >= 2 ?
+                    this.Frames[index + 1].Rolls[0] + this.Frames[index + 1].Rolls[0] :
+                      this.Frames[index + 1].Rolls[0] + this.Frames[index + 2].Rolls[0];
 
+                return nextTwoRolls + this.Frames[index].Rolls.Sum();
+            }
+            return this.Frames[index].Rolls.Sum();
+        }
         public int Score()
         {
             int sum = 0;
-            foreach(var frame in this.Frames)
+
+            for (int i = 0; i < 10; i++)
             {
-               sum += frame.Rolls.Sum();
+                sum += FrameScore(i);
             }
             return sum;
         }
