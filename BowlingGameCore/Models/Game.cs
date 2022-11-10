@@ -103,12 +103,17 @@
             }
             else if (Frames[_selectedFrameIndex].Rolls.Count() == 1)
             {
-                if (Frames[_selectedFrameIndex].Rolls[0] + nbr > 10)
+                if (Frames[_selectedFrameIndex].Rolls[0] != 10 &&
+                    Frames[_selectedFrameIndex].Rolls[0] + nbr > 10)
                 {
                     throw new Exception("Impossible Rolls nbre");
                 }
                 Frames[_selectedFrameIndex].Rolls.Add(nbr);
                 if (Frames[_selectedFrameIndex].Rolls.Sum() < 10)
+                {
+                    IsClosed = true;
+                }
+                if (Frames[_selectedFrameIndex].Rolls[0] == 10)
                 {
                     IsClosed = true;
                 }

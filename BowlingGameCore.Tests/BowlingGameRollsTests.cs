@@ -33,6 +33,20 @@ namespace BowlingGameCore.Tests
 
 
         [Fact]
+        public void GameRollsElevenStrikeCloseTheGame()
+        {
+            // Arrange
+            var game = new Game();
+
+            // Act
+            game.Rolls(new int[] { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 });
+
+            // Assert
+            Assert.True(game.IsClosed);
+        }
+
+
+        [Fact]
         public void GameRollsZeroPinsWithSpareCloseTheGame()
         {
             // Arrange
