@@ -10,16 +10,35 @@
 
         public int Id { get; set; }
 
-        public Frame[] Frames { get; set; } = new Frame[10];
+        public bool IsClosed { get; set; }
+
+        public Frame[] Frames { get; set; } = new Frame[10]
+        {
+            new Frame(),
+            new Frame(),
+            new Frame(),
+            new Frame(),
+            new Frame(),
+            new Frame(),
+            new Frame(),
+            new Frame(),
+            new Frame(),
+            new Frame(),
+        };
 
         public void Reset()
         {
+            IsClosed = false;
             Frames = new Frame[10];
             _selectedFrameIndex = 0;
         }
 
         public void Rolls(int pins)
         {
+            if (IsClosed)
+            {
+                throw new Exception("Game already closed.");
+            }
             if (pins < 0 || pins > 10)
             {
                 throw new Exception("Impossible Rolls nbre");
@@ -89,6 +108,10 @@
                     throw new Exception("Impossible Rolls nbre");
                 }
                 Frames[_selectedFrameIndex].Rolls.Add(nbr);
+                if (Frames[_selectedFrameIndex].Rolls.Sum() < 10)
+                {
+                    IsClosed = true;
+                }
             }
             else if (Frames[_selectedFrameIndex].Rolls.Count() == 2)
             {
@@ -97,6 +120,7 @@
                     throw new Exception("Third rolls is not permitted");
                 }
                 Frames[_selectedFrameIndex].Rolls.Add(nbr);
+                IsClosed = true;
             }
         }
     }
