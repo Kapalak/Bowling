@@ -13,7 +13,7 @@ namespace BowlingGameCore.Tests
                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0  });
 
             // Assert
-            Assert.Equal(true, game.IsClosed);
+            Assert.True(game.IsClosed);
         }
 
 
@@ -28,7 +28,7 @@ namespace BowlingGameCore.Tests
                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0 });
 
             // Assert
-            Assert.Equal(true, game.IsClosed);
+            Assert.True(game.IsClosed);
         }
 
 
@@ -43,7 +43,32 @@ namespace BowlingGameCore.Tests
                                    0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0 });
 
             // Assert
-            Assert.Equal(true, game.IsClosed);
+            Assert.True(game.IsClosed);
+        }
+
+
+        [Fact]
+        public void GameRollsTooMuchPinsThrowErrors()
+        {
+            // Arrange
+            var game = new Game();
+
+            // act & assert
+            Assert.Throws<Exception>(
+                () => game.Rolls(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }));
+        }
+
+
+        [Fact]
+        public void GameRollsPinsMoreThanAvailableThrowErrors()
+        {
+            // Arrange
+            var game = new Game();
+
+            // act & assert
+            Assert.Throws<Exception>(
+                () => game.Rolls(new int[] { 20 }));
         }
     }
 }
