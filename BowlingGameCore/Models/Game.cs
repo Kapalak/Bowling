@@ -65,16 +65,45 @@
                 Rolls(pins);
             }
         }
+        
+        private int StrikeScore(int index)
+        {
+            var nextTwoRolls = this.Frames[index + 1].Rolls.Count() >= 2 ?
+                  this.Frames[index + 1].Rolls[0] + this.Frames[index + 1].Rolls[0] :
+                    this.Frames[index + 1].Rolls[0] + this.Frames[index + 2].Rolls[0];
+
+            return nextTwoRolls + this.Frames[index].Rolls.Sum();
+        }
+
+        private int SpareScore(int index)
+        {
+            var nextRoll = this.Frames[index + 1].Rolls[0];
+
+            return nextRoll + this.Frames[index].Rolls.Sum();
+        }
+
+        private bool FrameIsStrike(int index)
+        {
+            return this.Frames[index].Rolls[0] == 10;
+        }
+
+        private bool FrameIsSpare(int index)
+        {
+            return this.Frames[index].Rolls.Sum() == 10;
+        }
+
         private int FrameScore(int index)
         {
-            if (index < 9 && this.Frames[index].Rolls[0] == 10)
+            if (index < 9 && FrameIsStrike(index))
             {
-                var nextTwoRolls = this.Frames[index + 1].Rolls.Count() >= 2 ?
-                    this.Frames[index + 1].Rolls[0] + this.Frames[index + 1].Rolls[0] :
-                      this.Frames[index + 1].Rolls[0] + this.Frames[index + 2].Rolls[0];
-
-                return nextTwoRolls + this.Frames[index].Rolls.Sum();
+                return StrikeScore(index);
             }
+            if (index < 9 && FrameIsSpare(index))
+            {
+
+               return SpareScore(index);
+            }
+
             return this.Frames[index].Rolls.Sum();
         }
         public int Score()
